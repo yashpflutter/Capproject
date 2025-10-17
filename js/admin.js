@@ -1,6 +1,13 @@
 const ADMIN_KEY = 'matchState';
+const SCORE_KEY = 'matchScores';
 const bc = ('BroadcastChannel' in window) ? new BroadcastChannel('match-updates') : null;
+
 const adminAreas = document.getElementById('admin-areas');
+const loginBox = document.getElementById('login-box');
+const adminRoot = document.getElementById('admin-root');
+const loginBtn = document.getElementById('login-btn');
+const loginMsg = document.getElementById('login-msg');
+const logoutBtn = document.getElementById('logout-btn');
 
 function loadState(){
   const raw = localStorage.getItem(ADMIN_KEY);
@@ -10,6 +17,15 @@ function loadState(){
 function saveState(state){
   localStorage.setItem(ADMIN_KEY, JSON.stringify(state));
   if(bc) bc.postMessage({type:'state', state});
+}
+
+function loadScores(){
+  return JSON.parse(localStorage.getItem(SCORE_KEY) || '{}');
+}
+
+function saveScores(scores){
+  localStorage.setItem(SCORE_KEY, JSON.stringify(scores));
+  if(bc) bc.postMessage({type:'score', scores});
 }
 
 function ensureStateFromJsonThenRender(){
@@ -105,12 +121,65 @@ function renderAdmin(state){
   });
 }
 
+// SCORE form handling (admin)
+function setupScoreForm(){
+  const form = document.getElementById('admin-score-form');
+  if(!form) return;
+  form.addEventListener('submit', (ev)=>{
+    ev.preventDefault();
+    const team = document.getElementById('admin-score-team').value;
+    const runs = Number(document.getElementById('admin-score-runs').value);
+    const wk = Number(document.getElementById('admin-score-wk').value);
+    const overs = document.getElementById('admin-score-overs').value;
+    const payload = { team, runs, wk, overs, ts: Date.now() };
+    const scores = loadScores();
+    scores[team] = payload;
+    saveScores(scores);
+    alert('Score updated and broadcast to viewers.');
+  });
+}
+
+// simple client-side auth (NOT secure for production)
+const VALID_USER = 'admin';
+const VALID_PASS = 'admin@123';
+
+function showAdminArea(){
+  loginBox.classList.add('hidden');
+  adminRoot.classList.remove('hidden');
+  ensureStateFromJsonThenRender();
+  setupScoreForm();
+}
+
+function logout(){
+  adminRoot.classList.add('hidden');
+  loginBox.classList.remove('hidden');
+}
+
+loginBtn.addEventListener('click', ()=>{
+  const u = document.getElementById('admin-user').value.trim();
+  const p = document.getElementById('admin-pass').value;
+  if(u === VALID_USER && p === VALID_PASS){
+    loginMsg.textContent = '';
+    showAdminArea();
+  } else {
+    loginMsg.textContent = 'Invalid credentials';
+  }
+});
+
+logoutBtn.addEventListener('click', ()=>{
+  logout();
+});
+
 // respond to broadcasts from other tabs (viewer/admin)
 if(bc){
   bc.onmessage = (ev) => {
     if(ev.data && ev.data.type === 'state'){
-      saveState(ev.data.state); // will overwrite localStorage and keep consistent
+      // keep in sync
+      localStorage.setItem(ADMIN_KEY, JSON.stringify(ev.data.state));
       renderAdmin(ev.data.state);
+    } else if(ev.data && ev.data.type === 'score'){
+      localStorage.setItem(SCORE_KEY, JSON.stringify(ev.data.scores));
+      // if admin is logged in, nothing else needed; viewers will update
     }
   };
 }
@@ -121,6 +190,9 @@ window.addEventListener('storage', (e)=>{
     const s = loadState();
     if(s) renderAdmin(s);
   }
+  if(e.key === SCORE_KEY){
+    // scores changed in another tab
+  }
 });
 
-ensureStateFromJsonThenRender();
+// init: only prepare login UI; actual render happens after login
