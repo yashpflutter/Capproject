@@ -1,0 +1,44 @@
+{
+  "teams": [
+    {
+      "name": "India",
+      "players": [
+        { "name": "India Batsman 1", "role": "Batsman", "isPlaying": true, "desc": "Top-order right-handed batter.", "image": "" },
+        { "name": "India Batsman 2", "role": "Batsman", "isPlaying": true, "desc": "Aggressive opener.", "image": "" },
+        { "name": "India Batsman 3", "role": "Batsman", "isPlaying": true, "desc": "Middle-order anchor.", "image": "" },
+        { "name": "India Allrounder 1", "role": "All-rounder", "isPlaying": true, "desc": "Useful seam bowling all-rounder.", "image": "" },
+        { "name": "India Allrounder 2", "role": "All-rounder", "isPlaying": true, "desc": "Right-hand batter and handy off-spin.", "image": "" },
+        { "name": "India Bowler 1", "role": "Bowler", "isPlaying": true, "desc": "Pace bowler with good yorkers.", "image": "" },
+        { "name": "India Bowler 2", "role": "Bowler", "isPlaying": true, "desc": "Left-arm swing bowler.", "image": "" },
+        { "name": "India Bowler 3", "role": "Bowler", "isPlaying": true, "desc": "Death-over specialist.", "image": "" },
+        { "name": "India Bowler 4", "role": "Bowler", "isPlaying": true, "desc": "Skiddy fast bowler.", "image": "" },
+        { "name": "India Wicketkeeper", "role": "Wicketkeeper", "isPlaying": true, "desc": "Gloveman and lower-order hitter.", "image": "" },
+        { "name": "India Batsman 4", "role": "Batsman", "isPlaying": false, "desc": "Backup batter.", "image": "" },
+        { "name": "India Bowler 5", "role": "Bowler", "isPlaying": false, "desc": "Spin bowling reserve.", "image": "" },
+        { "name": "India Allrounder 3", "role": "All-rounder", "isPlaying": false, "desc": "Batting all-rounder.", "image": "" },
+        { "name": "India Keeper 2", "role": "Wicketkeeper", "isPlaying": false, "desc": "Reserve wicketkeeper.", "image": "" },
+        { "name": "India Bowler 6", "role": "Bowler", "isPlaying": false, "desc": "Extra pace option.", "image": "" }
+      ]
+    },
+    {
+      "name": "Australia",
+      "players": [
+        { "name": "AUS Batsman 1", "role": "Batsman", "isPlaying": true, "desc": "Explosive opener.", "image": "" },
+        { "name": "AUS Batsman 2", "role": "Batsman", "isPlaying": true, "desc": "Technically solid top-order.", "image": "" },
+        { "name": "AUS Batsman 3", "role": "Batsman", "isPlaying": true, "desc": "Middle-order aggressor.", "image": "" },
+        { "name": "AUS Allrounder 1", "role": "All-rounder", "isPlaying": true, "desc": "Pace bowling all-rounder.", "image": "" },
+        { "name": "AUS Allrounder 2", "role": "All-rounder", "isPlaying": true, "desc": "Utility batter and spinner.", "image": "" },
+        { "name": "AUS Bowler 1", "role": "Bowler", "isPlaying": true, "desc": "Fast bowler with bounce.", "image": "" },
+        { "name": "AUS Bowler 2", "role": "Bowler", "isPlaying": true, "desc": "Swing bowler.", "image": "" },
+        { "name": "AUS Bowler 3", "role": "Bowler", "isPlaying": true, "desc": "Seam and accuracy.", "image": "" },
+        { "name": "AUS Bowler 4", "role": "Bowler", "isPlaying": true, "desc": "Pace variation specialist.", "image": "" },
+        { "name": "AUS Wicketkeeper", "role": "Wicketkeeper", "isPlaying": true, "desc": "Dynamic keeper-batter.", "image": "" },
+        { "name": "AUS Batsman 4", "role": "Batsman", "isPlaying": false, "desc": "Reserve opener.", "image": "" },
+        { "name": "AUS Bowler 5", "role": "Bowler", "isPlaying": false, "desc": "Spin reserve.", "image": "" },
+        { "name": "AUS Allrounder 3", "role": "All-rounder", "isPlaying": false, "desc": "Lower-order hitter.", "image": "" },
+        { "name": "AUS Keeper 2", "role": "Wicketkeeper", "isPlaying": false, "desc": "Backup keeper.", "image": "" },
+        { "name": "AUS Bowler 6", "role": "Bowler", "isPlaying": false, "desc": "Extra pace option.", "image": "" }
+      ]
+    }
+  ]
+}

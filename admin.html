@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Match Admin — India vs Australia</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body{padding:18px}
+    .team-admin{background:#072b2f;padding:12px;border-radius:8px;margin-bottom:12px}
+    .player-row{display:flex;align-items:center;gap:8px;padding:6px;border-bottom:1px solid rgba(255,255,255,0.03)}
+    .player-row:last-child{border-bottom:0}
+    .player-row img{width:40px;height:40px;border-radius:6px}
+    .controls{margin-left:auto;display:flex;gap:6px}
+    select{padding:6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <h1>Match Admin</h1>
+  <p class="subtle">Open the viewer (index.html) in another tab to see live updates.</p>
+
+  <div id="admin-areas">
+    <!-- rendered by admin.js -->
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
