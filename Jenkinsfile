@@ -2,17 +2,17 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION     = 'ap-south-1'                       // Your AWS region
-        S3_BUCKET      = 'bucket-bcci'                      // Your S3 bucket name
-        AWS_ACCESS_KEY_ID     = credentials('aws-jenkins') // Jenkins AWS credential ID
-        AWS_SECRET_ACCESS_KEY = credentials('aws-jenkins') // Jenkins AWS credential ID
-        CLOUDFRONT_DIST_ID    = 'EKFX8L2MS6EP'              // Your CloudFront distribution ID
+        AWS_REGION           = 'ap-south-1'
+        S3_BUCKET            = 'bucket-bcci'
+        AWS_ACCESS_KEY_ID     = credentials('aws-jenkins')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-jenkins')
+        CLOUDFRONT_DIST_ID    = 'EKFX8L2MS6EP'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/yashpflutter/Capproject.git', credentialsId: 'github-jenkins' // Your GitHub credential ID
+                git branch: 'main', url: 'https://github.com/yashpflutter/Capproject.git', credentialsId: 'github-jenkins'
             }
         }
 
@@ -22,8 +22,10 @@ pipeline {
                 if ! command -v aws &> /dev/null
                 then
                     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-                    unzip awscliv2.zip
+                    unzip -o awscliv2.zip
                     sudo ./aws/install
+                else
+                    echo "AWS CLI already installed."
                 fi
                 '''
             }
@@ -55,4 +57,3 @@ pipeline {
         }
     }
 }
-
