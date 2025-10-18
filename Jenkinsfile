@@ -6,7 +6,7 @@ pipeline {
         S3_BUCKET            = 'bucket-bcci'
         AWS_ACCESS_KEY_ID     = credentials('aws-jenkins')
         AWS_SECRET_ACCESS_KEY = credentials('aws-jenkins')
-        CLOUDFRONT_DIST_ID    = 'EKFX8L2MS6EP'
+        CLOUDFRONT_DIST_ID    = 'E1C169Y5BMUNCV'
     }
 
     stages {
@@ -56,3 +56,4 @@ pipeline {
         }
     }
 }
+
