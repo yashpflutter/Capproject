@@ -19,12 +19,12 @@ pipeline {
         stage('Check AWS CLI') {
             steps {
                 sh '''
-                if ! command -v aws &> /dev/null
+                if command -v aws &> /dev/null
                 then
+                    echo "AWS CLI found."
+                else
                     echo "AWS CLI not found. Please install manually on Jenkins server."
                     exit 1
-                else
-                    echo "AWS CLI already installed."
                 fi
                 '''
             }
