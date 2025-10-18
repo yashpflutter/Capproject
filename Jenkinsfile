@@ -2,28 +2,45 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'ap-south-1'
-        S3_BUCKET = 'bucket-bcci'       // Your S3 bucket name
+        AWS_REGION     = 'ap-south-1'                       // Your AWS region
+        S3_BUCKET      = 'bucket-bcci'                      // Your S3 bucket name
+        AWS_ACCESS_KEY_ID     = credentials('aws-jenkins') // Jenkins AWS credential ID
+        AWS_SECRET_ACCESS_KEY = credentials('aws-jenkins') // Jenkins AWS credential ID
+        CLOUDFRONT_DIST_ID    = 'EKFX8L2MS6EP'              // Your CloudFront distribution ID
     }
 
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/yashpflutter/Capproject.git'
+                git branch: 'main', url: 'https://github.com/yashpflutter/Capproject.git', credentialsId: 'github-jenkins' // Your GitHub credential ID
             }
         }
 
         stage('Install AWS CLI') {
             steps {
-                sh 'which aws || curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && unzip awscliv2.zip && sudo ./aws/install'
+                sh '''
+                if ! command -v aws &> /dev/null
+                then
+                    curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                    unzip awscliv2.zip
+                    sudo ./aws/install
+                fi
+                '''
             }
         }
 
         stage('Deploy to S3') {
             steps {
-                // Sync local files to S3 bucket (overwrites old files)
                 sh '''
-                    aws s3 sync . s3://$S3_BUCKET --region $AWS_REGION --delete --exclude ".git/*" --exclude "Jenkinsfile"
+                aws s3 sync . s3://$S3_BUCKET --region $AWS_REGION --delete --exclude ".git/*" --exclude "Jenkinsfile"
+                '''
+            }
+        }
+
+        stage('CloudFront Invalidation') {
+            steps {
+                sh '''
+                aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DIST_ID --paths "/*" --region $AWS_REGION
                 '''
             }
         }
@@ -31,10 +48,11 @@ pipeline {
 
     post {
         success {
-            echo 'Website successfully deployed to S3!'
+            echo 'Deployment successful and CloudFront cache invalidated.'
         }
         failure {
-            echo 'Deployment failed. Check logs.'
+            echo 'Deployment failed. Check the logs.'
         }
     }
 }
+
