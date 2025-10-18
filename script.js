@@ -5,7 +5,7 @@ const players = [
         name: "Rohit Sharma",
         role: "Batsman",
         roleClass: "role-batsman",
-        image: "images/sharma.jpg",
+        image: "images/sOharma.jpg",
         description: "Right-handed opening batsman and captain of the Indian cricket team. Known for his elegant stroke play and ability to score big centuries.",
         matches: 248,
         runs: 10123,
